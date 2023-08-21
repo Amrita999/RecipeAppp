@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Add Recipe</title>
+  <link rel="stylesheet" href="/css/addRecipe.css">
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+</head>
+
+<body>
+  <%- include('navbar') %>
+  <div class="image-container">
+    <!-- Your image will be displayed here -->
+  
+  
+  <h1 class="heading">Add Recipe</h1>
+
+  <form action="/create" method="POST" id="recipeForm">
+    <!-- Recipe Name Input -->
+    <label for="recipeName">Recipe Name:</label>
+    <input type="text" id="recipeName" name="recipeName" required>
+    <div class="error-message" id="recipeNameError"></div>
+
+    <!-- Ingredients Input -->
+    <label for="ingredients">Ingredients:</label>
+    <div style="display: flex;">
+      <select id="fetchedIngredients" multiple>
+        <!-- Fetched ingredients will be populated here dynamically -->
+      </select>
+
+      <input type="text" id="manualIngredient" placeholder="Type your ingredient" oninput="showFetchedIngredients()">
+
+      <button type="button" onclick="addIngredient()">Add</button>
+    </div>
+    
+    <!-- Fetched Ingredients List -->
+    <div id="fetchedIngredientsList"></div>
+
+    <label >Selected Ingredients</label>
+
+
+    <!-- Selected Ingredients List -->
+    <input type="hidden" id="selectedIngredients" name="selectedIngredients">
+    <ul id="selectedIngredientsList"></ul>
+
+    <!-- Instructions Input -->
+    <label for="instructions">Instructions:</label>
+    <textarea id="instructions" name="instructions" rows="4" cols="50" required></textarea>
+    <div class="error-message" id="instructionsError"></div>
+
+    <!-- Save Recipe Button -->
+    <button type="submit">Save Recipe</button>
+  </form>
+  </div>
+
+  <script>
+    // Your existing JavaScript code here
+    const apiUrl = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const ingredientsSelect = document.getElementById("fetchedIngredients");
+      const fetchedIngredientsList = document.getElementById("fetchedIngredientsList");
+      const ingredients = data.meals;
+      
+      ingredients.forEach(ingredient => {
+        const option = document.createElement("option");
+        option.value = ingredient.strIngredient;
+        option.textContent = ingredient.strIngredient;
+        ingredientsSelect.appendChild(option);
+      });
+      
+      ingredientsSelect.addEventListener("click", () => {
+        const selectedIngredient = ingredientsSelect.value;
+        if (selectedIngredient) {
+          document.getElementById("manualIngredient").value = selectedIngredient;
+          fetchedIngredientsList.style.display = "none";
+        }
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching ingredient data:", error);
+    });
+
+    const selectedIngredientsList = document.getElementById("selectedIngredientsList");
+    const selectedIngredientsField = document.getElementById("selectedIngredients");
+    const manualIngredientInput = document.getElementById("manualIngredient");
+    
+    const selectedIngredients = [];
+    
+    function addIngredient() {
+      const fetchedIngredients = document.getElementById("fetchedIngredients");
+      const manualIngredient = manualIngredientInput.value.trim();
+    
+      if (fetchedIngredients.value && !selectedIngredients.includes(fetchedIngredients.value)) {
+        selectedIngredients.push(fetchedIngredients.value);
+        updateSelectedIngredientsList();
+      }
+    
+      if (manualIngredient && !selectedIngredients.includes(manualIngredient)) {
+        selectedIngredients.push(manualIngredient);
+        manualIngredientInput.value = ""; // Clear the input
+        updateSelectedIngredientsList();
+      }
+    }
+    
+    function updateSelectedIngredientsList() {
+      selectedIngredientsList.innerHTML = "";
+      selectedIngredients.forEach(ingredient => {
+        const listItem = document.createElement("li");
+        listItem.textContent = ingredient;
+        selectedIngredientsList.appendChild(listItem);
+      });
+    
+      selectedIngredientsField.value = selectedIngredients.join(",");
+    }
+    function showFetchedIngredients() {
+  const manualIngredient = manualIngredientInput.value.trim();
+  const fetchedIngredientsList = document.getElementById("fetchedIngredientsList");
+  const ingredientsSelect = document.getElementById("fetchedIngredients");
+
+  if (manualIngredient) {
+    const matchedIngredients = Array.from(ingredientsSelect.options)
+      .filter(option =>
+        option.value.toLowerCase().startsWith(manualIngredient.toLowerCase())
+      );
+
+    // Hide non-matching options and display matched options
+    Array.from(ingredientsSelect.options).forEach(option => {
+      if (matchedIngredients.includes(option)) {
+        option.style.display = "block";
+      } else {
+        option.style.display = "none";
+      }
+    });
+
+    if (matchedIngredients.length > 0) {
+      fetchedIngredientsList.innerHTML = matchedIngredients.map(option => option.value).join("<br>");
+      fetchedIngredientsList.style.display = "block";
+    } else {
+      fetchedIngredientsList.style.display = "none";
+    }
+  } else {
+    // Reset the style and hide fetched ingredients list
+    Array.from(ingredientsSelect.options).forEach(option => {
+      option.style.display = "block";
+    });
+    fetchedIngredientsList.style.display = "none";
+  }
+}
+
+    
+  </script>
+</body>
+
+</html>

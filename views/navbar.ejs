@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Borel&family=Lobster&family=Merriweather:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Borel&family=EB+Garamond:wght@400;500&family=Lobster&family=Merriweather:wght@300&display=swap');
+
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'EB Garamond', serif;
+    }
+
+    /* Style for the navigation bar */
+    .header {
+      background-color: #101010;
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+
+    /* Style for the topbar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Style for the logo */
+    .nav-img {
+      width: 70px;
+      height: 50px;
+    }
+
+    /* Style for the menu links */
+    .menu a {
+      color: white;
+      border: none;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-right: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .menu a:hover {
+      background-color: rgb(207, 142, 20);
+      cursor: pointer;
+      transition: background-color 0.2 ease-in-out;
+      color: #0d0d0d;
+    }
+
+    /* Style for the active link */
+    .menu a.active {
+      color: #ff6600;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="header">
+
+    <div class="container">
+      <div class="d-flex topbar">
+        <img class="nav-img" src="/images/logo.jpg" alt="Recipe App Logo" />
+        <div class="menu">
+          <a href="/">Home</a>
+          <a href="/create">Add Recipe</a>
+          <a href="/read">My Recipe</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</body>
+
+</html>

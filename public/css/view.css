@@ -1,0 +1,125 @@
+/* Reset some default margin and padding */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Basic styling for the page container */
+body {
+  font-family: Arial, sans-serif;
+  width: 100%; /* Set the desired width */
+  height: 600px; /* Set the desired height */
+  background-image: url('/images/bcg5.jpg');
+  background-size: cover; /* Adjust the background size as needed */
+  background-position: center; /* Center the background image */
+  
+}
+
+/* Styling for the header */
+.heading{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  color:rgb(10, 10, 10);
+}
+
+/* Styling for the recipes container */
+.recipes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+/* Styling for recipe cards */
+.recipe-card {
+  background-color:  rgb(63, 19, 61);
+  color: rgb(116, 243, 221);
+  position: relative; /* Add relative positioning */
+  width: 300px;
+  height: 400px;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgb(25, 216, 222), -5px -5px 10px rgb(239, 220, 6);
+  cursor: pointer;
+  max-width: 350px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.recipe-card:hover{
+  transform: scale(1.06);
+}
+
+/* Styling for buttons at the bottom of the card */
+.buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+ 
+}
+
+.buttons a {
+  text-decoration: none;
+  font-weight: 500;
+  background-color: #0b0b0b;
+  color: #f1ebeb;
+  transition: color 0.2s;
+}
+
+
+/* Styling for delete button */
+
+.delete-button, .update-button {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.delete-button:hover {
+  background-color:#ff6600;;
+  color: #0e0d0d;
+}
+.update-button:hover {
+  background-color:#4eea1a;;
+  color: #000000;
+}
+
+
+/* Styling for recipe card content */
+.recipe-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+  color:rgb(116, 243, 221);
+}
+
+.ingredients h3, .instructions h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+/* Styling for ingredients and instructions */
+.ingredients ul, .instructions p {
+  margin-left: 15px;
+}
+
+
+
+
+/* Styling for "No recipes" message */
+.no-recipes {
+  text-align: center;
+  padding: 50px;
+}
+
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .recipe-card {
+    width: 100%;
+  }
+}

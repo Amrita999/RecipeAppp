@@ -1,0 +1,50 @@
+<!-- views/viewRecipe.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>View Recipes</title>
+    <link rel="stylesheet" href="/css/view.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <%- include('navbar') %>
+    <h1 class="heading">View Recipes</h1>
+
+    <div class="recipes-container">
+      <% recipes.forEach(recipe => { %>
+      <div class="recipe-card">
+        <h2><%= recipe.recipeName %></h2>
+        <div class="ingredients">
+          <h3>Ingredients:</h3>
+
+          <ul>
+            <% const ingredientsArray = recipe.selectedIngredients.split(','); %> <%
+            ingredientsArray.forEach(ingredient => { %>
+            <li><%= ingredient.trim().replace(/["{}]/g, '') %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <div class="instructions">
+          <h3>Instructions:</h3>
+          <p><%= recipe.instructions %></p>
+        </div>
+        <div class="buttons">
+          <a href="/update/<%= recipe.id %> " class="update-button">Update</a>
+          <a href="/delete/<%= recipe.id %>" class="delete-button">Delete</a>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+    <% if (recipes.length === 0) { %>
+    <div class="no-recipes">
+      <h1>No recipe records found.</h1>
+    </div>
+    <% } %>
+  </body>
+</html>
