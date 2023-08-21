@@ -1,19 +1,18 @@
-
 const { Sequelize } = require('sequelize');
 
-// Replace these values with your actual PostgreSQL database configuration
-const DB_NAME = 'RecipeApp';
-const DB_USER = 'postgres';
-const DB_PASSWORD = 'postgres';
-const DB_HOST = 'localhost';
-const DB_PORT = 5432; 
+// Replace this URL with your actual PostgreSQL database URL
+const DB_URL = 'postgres://amrita:OCR3cJA1whXZtevMoCSAoEASgkcsWnqk@dpg-cjhnegl1a6cs73eemeug-a.oregon-postgres.render.com/recipeapp_hgi3'
 
-// Create Sequelize instance
-const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-  host: DB_HOST,
-  port: DB_PORT,
-  dialect: 'postgres', 
-  logging: false, 
+// Create Sequelize instance with SSL configuration
+const sequelize = new Sequelize(DB_URL, {
+  dialect: 'postgres',
+  logging: false,
+  dialectOptions: {
+ssl: {
+      require: true,   // Require SSL
+      rejectUnauthorized: false, // Bypass self-signed certificates if needed
+    },
+  },
 });
 
 module.exports = sequelize;
